@@ -95,13 +95,15 @@ public class CameraShowActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mCameraPreview.onResume();
+        if (mCameraPreview != null)
+            mCameraPreview.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mCameraPreview.onPause();
+        if (mCameraPreview != null)
+            mCameraPreview.onPause();
     }
 
     /**
