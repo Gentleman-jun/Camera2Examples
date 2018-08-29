@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ import com.linkin.camera2examples.util.DeviceUtils;
  * Created by Linkin on 2018/8/9.
  * 作者: 刘忠俊
  * 日期: 2018年08月09日
- * 描述: TODO
+ * 描述: 首页面选择
  */
 
 public class CameraShowActivity extends AppCompatActivity {
@@ -41,6 +42,7 @@ public class CameraShowActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        hideBottomUIMenu();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_show);
         isOpenCamera2 = getIntent().getBooleanExtra(OPEN_CAMERA2, false);
@@ -103,17 +105,25 @@ public class CameraShowActivity extends AppCompatActivity {
         mCameraPreview.onPause();
     }
 
-    //隐藏虚拟按键，并且全屏
+    /**
+     * 隐藏虚拟按键，并且全屏
+     */
     protected void hideBottomUIMenu() {
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+        //隐藏虚拟按键，并且全屏
+        if (Build.VERSION.SDK_INT < 19) { // lower api
             View v = this.getWindow().getDecorView();
             v.setSystemUiVisibility(View.GONE);
         } else if (Build.VERSION.SDK_INT >= 19) {
             //for new api versions.
             View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+//                    | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE;
             decorView.setSystemUiVisibility(uiOptions);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
 

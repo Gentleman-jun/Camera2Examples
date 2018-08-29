@@ -386,7 +386,7 @@ public class Camera1Preview extends SurfaceView implements CameraView, SurfaceHo
         for (Camera.Size size : mCameraParameters.getSupportedPictureSizes()) {
             mPictureSizes.add(new Size(size.width, size.height));
         }
-        // AspectRatio
+        // AspectRatio  默认长宽比为4：3
         if (mAspectRatio == null) {
             mAspectRatio = Constants.DEFAULT_ASPECT_RATIO;
         }

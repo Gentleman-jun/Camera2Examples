@@ -69,6 +69,10 @@ public class Camera2Preview extends TextureView implements CameraView {
     private int mRatioWidth = 0;
     private int mRatioHeight = 0;
 
+    private int mCameraCount;
+    private int mCurrentCameraFacing = CameraCharacteristics.LENS_FACING_BACK;
+
+
     public Camera2Preview(Context context) {
         this(context, null);
     }
@@ -119,7 +123,7 @@ public class Camera2Preview extends TextureView implements CameraView {
 
     @Override
     public void takePicture() {
-        lockFocus();
+        takePictureInternal();
     }
 
     private TakePictureCallback mTakePictureCallback;
@@ -127,7 +131,15 @@ public class Camera2Preview extends TextureView implements CameraView {
     @Override
     public void takePicture(TakePictureCallback takePictureCallback) {
         mTakePictureCallback = takePictureCallback;
-        lockFocus();
+        takePictureInternal();
+    }
+
+    private void takePictureInternal() {
+        if (mCurrentCameraFacing == CameraCharacteristics.LENS_FACING_BACK) {
+            lockFocus();
+        } else {
+            runPrecaptureSequence();
+        }
     }
 
 
@@ -145,7 +157,12 @@ public class Camera2Preview extends TextureView implements CameraView {
 
     @Override
     public void switchCameraFacing() {
-
+        if (mCameraCount > 1) {
+            mCurrentCameraFacing = mCurrentCameraFacing == CameraCharacteristics.LENS_FACING_BACK ?
+                    CameraCharacteristics.LENS_FACING_FRONT : CameraCharacteristics.LENS_FACING_BACK;
+            closeCamera();
+            openCamera(getWidth(), getHeight());
+        }
     }
 
 
@@ -509,15 +526,16 @@ public class Camera2Preview extends TextureView implements CameraView {
     @SuppressWarnings("SuspiciousNameCombination")
     private void setUpCameraOutputs(int width, int height) {
         CameraManager manager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
-
         try {
-            for (String cameraId : manager.getCameraIdList()) {
+            String[] cameraIdList = manager.getCameraIdList();
+            mCameraCount = cameraIdList.length;
+            for (String cameraId : cameraIdList) {
                 CameraCharacteristics characteristics
                         = manager.getCameraCharacteristics(cameraId);
 
-                // 在这个示例中我们不使用前置摄像头。
+                //判断当前摄像头是前置还是后置摄像头
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+                if (facing != null && facing != mCurrentCameraFacing) {
                     continue;
                 }
 

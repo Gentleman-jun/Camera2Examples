@@ -16,22 +16,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:padding="5dp">
 
-        <Button
+        <ImageView
             android:id="@+id/button_capture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
+            android:src="@drawable/camera"
             android:text="Capture"
             android:textAllCaps="false" />
 
 
-        <Button
+        <ImageView
             android:id="@+id/button_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
+            android:src="@drawable/switch_camera"
             android:text="SwitchCamera"
             android:textAllCaps="false" />
 
