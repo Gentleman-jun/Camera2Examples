@@ -42,7 +42,6 @@ public class CameraShowActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        hideBottomUIMenu();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_show);
         isOpenCamera2 = getIntent().getBooleanExtra(OPEN_CAMERA2, false);

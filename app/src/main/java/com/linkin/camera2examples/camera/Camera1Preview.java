@@ -204,14 +204,14 @@ public class Camera1Preview extends SurfaceView implements CameraView, SurfaceHo
             camera = Camera.open(mCurrentCameraFacing);
         } catch (Exception e) {
             // 相机不可用或不存在
-            Log.e(TAG, "error open(int cameraId) camera : " + e.getMessage());
+            Log.e(TAG, "error open(int cameraId) camera1 : " + e.getMessage());
         }
 
         try {
             if (null == camera)
                 camera = Camera.open();
         } catch (Exception e) {
-            Log.e(TAG, "error open camera（） : " + e.getMessage());
+            Log.e(TAG, "error open camera1（） : " + e.getMessage());
         }
 
         return camera;
@@ -223,7 +223,7 @@ public class Camera1Preview extends SurfaceView implements CameraView, SurfaceHo
     private void releaseCamera() {
         if (mCamera != null) {
             mCamera.stopPreview();
-            mCamera.release();        // release the camera for other applications
+            mCamera.release();        // release the camera1 for other applications
             mCamera = null;
         }
     }
@@ -252,7 +252,7 @@ public class Camera1Preview extends SurfaceView implements CameraView, SurfaceHo
             startPreview(holder);
             setCameraParameters(width, height);
         } catch (Exception e) {
-            Log.d(TAG, "error starting camera preview: " + e.getMessage());
+            Log.d(TAG, "error starting camera1 preview: " + e.getMessage());
         }
 
     }
@@ -274,7 +274,7 @@ public class Camera1Preview extends SurfaceView implements CameraView, SurfaceHo
             mCamera.setDisplayOrientation(calcDisplayOrientation(mCurrentCameraFacing));
             mCamera.startPreview();
         } catch (IOException e) {
-            Log.e(TAG, "error setting camera preview:" + e.getMessage());
+            Log.e(TAG, "error setting camera1 preview:" + e.getMessage());
         }
     }
 
@@ -398,7 +398,7 @@ public class Camera1Preview extends SurfaceView implements CameraView, SurfaceHo
         }
         Size previewSize = chooseOptimalSize(sizes, width, height);
 
-        // Always re-apply camera parameters
+        // Always re-apply camera1 parameters
         // Largest picture size in this ratio
         final Size pictureSize = mPictureSizes.sizes(mAspectRatio).last();
 
@@ -410,7 +410,7 @@ public class Camera1Preview extends SurfaceView implements CameraView, SurfaceHo
         mCameraParameters.setJpegQuality(100); // 设置照片质量
         mCameraParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);//自动对焦
         //parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);//连续对焦
-        //camera.cancelAutoFocus();//如果要实现连续的自动对焦，这一句必须加上
+        //camera1.cancelAutoFocus();//如果要实现连续的自动对焦，这一句必须加上
 
         mCamera.setParameters(mCameraParameters);
 

@@ -18,10 +18,10 @@ public final class DeviceUtils {
      */
     public static boolean checkCameraHardware(Context context) {
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-            // this device has a camera
+            // this device has a camera1
             return true;
         } else {
-            // no camera on this device
+            // no camera1 on this device
             return false;
         }
     }

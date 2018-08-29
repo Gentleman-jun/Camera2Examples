@@ -371,7 +371,7 @@ public class Camera2Preview extends TextureView implements CameraView {
     };
 
     /**
-     * {@link CaptureRequest.Builder} for the camera preview
+     * {@link CaptureRequest.Builder} for the camera1 preview
      */
     private CaptureRequest.Builder mPreviewRequestBuilder;
 
@@ -411,7 +411,7 @@ public class Camera2Preview extends TextureView implements CameraView {
         private void process(CaptureResult result) {
             switch (mState) {
                 case STATE_PREVIEW: {
-                    // We have nothing to do when the camera preview is working normally.
+                    // We have nothing to do when the camera1 preview is working normally.
                     break;
                 }
                 case STATE_WAITING_LOCK: {
@@ -640,7 +640,7 @@ public class Camera2Preview extends TextureView implements CameraView {
         CameraManager manager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
         try {
             if (!mCameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
-                throw new RuntimeException("Time out waiting to lock camera opening.");
+                throw new RuntimeException("Time out waiting to lock camera1 opening.");
             }
             if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 return;
@@ -649,7 +649,7 @@ public class Camera2Preview extends TextureView implements CameraView {
         } catch (CameraAccessException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
-            throw new RuntimeException("Interrupted while trying to lock camera opening.", e);
+            throw new RuntimeException("Interrupted while trying to lock camera1 opening.", e);
         }
     }
 
@@ -672,7 +672,7 @@ public class Camera2Preview extends TextureView implements CameraView {
                 mImageReader = null;
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException("Interrupted while trying to lock camera closing.", e);
+            throw new RuntimeException("Interrupted while trying to lock camera1 closing.", e);
         } finally {
             mCameraOpenCloseLock.release();
         }
