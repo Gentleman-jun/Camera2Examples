@@ -52,6 +52,7 @@ captures/
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 
+<<<<<<< HEAD
 # Freeline
 freeline.py
 freeline/
@@ -63,3 +64,5 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+=======
+>>>>>>> first commit
