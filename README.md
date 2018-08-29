@@ -1,2 +1,2 @@
 # Camera2Examples
-Camera1和Camera2的封装使用
+Android Camera1 API 和Camera2 API的封装与使用
